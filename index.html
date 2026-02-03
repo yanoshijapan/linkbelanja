@@ -344,6 +344,15 @@
                         this.fetchData(); // Kembalikan data jika gagal
                     }
                 },
+
+                get filteredItems() {
+                    const q = this.searchQuery.toLowerCase();
+                    return this.dataItems.filter(i => {
+                        const matchSearch = i.item.toLowerCase().includes(q) || i.user.toLowerCase().includes(q);
+                        const matchFilter = this.filterStatus === 'all' || i.status === this.filterStatus;
+                        return matchSearch && matchFilter;
+                    });
+                },
                 // ==========================
 
                 formatDate(isoString) {
